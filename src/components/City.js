@@ -16,6 +16,9 @@ class City extends Component {
           <p> The Latitude is: {this.props.locationUpdate.lon}</p>
         </>
         }
+        {this.props.testError &&
+          <h2> Please Enter a Valid City </h2>
+        }
        </>
     )
   }

@@ -22,16 +22,24 @@ class App extends Component {
   
   handleSubmit = (location) =>{
     this.setState({
-      location: location
+      location: location,
+      error: false
     });
   }
+
+  handleError = () =>{
+    this.setState({
+      error: true
+    });
+  }
+
 
   render(){
     
     return(
       <>
-      <LocationForm searchQuery={this.state.searchQuery} handleSubmit={this.handleSubmit} update={this.handleChange}/>
-      <City locationUpdate={this.state.location} />
+      <LocationForm error={this.handleError} searchQuery={this.state.searchQuery} handleSubmit={this.handleSubmit} update={this.handleChange}/>
+      <City testError={this.state.error} locationUpdate={this.state.location} />
       </>
     );
   }

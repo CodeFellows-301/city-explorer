@@ -17,13 +17,18 @@ class LocationForm extends Component{
   getLocation = async (event) => {
     event.preventDefault();
     const url = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_KEY}&q=${this.props.searchQuery}&format=json` 
-    let response = await axios.get(url);
-    let location = response.data[0]
-
-    this.props.handleSubmit(location);
+    try {
+      let response = await axios.get(url);
+      let location = response.data[0]
+  
+      this.props.handleSubmit(location);
+    } 
+    catch (error) {
+      this.props.error();
+    }
   };
   
-  render(){
+  render() {
     return(
       <>
       <Form>
