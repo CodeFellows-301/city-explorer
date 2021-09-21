@@ -1,5 +1,6 @@
 import { Component } from "react";
 import LocationForm from './components/LocationForm'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import City from './components/City'
 
 
@@ -9,6 +10,7 @@ class App extends Component {
     this.state={
       searchQuery: '',
       location: {},
+      map: null,
       error: false
     } 
   }
@@ -26,6 +28,12 @@ class App extends Component {
       error: false
     });
   }
+  
+  handleMapSubmit = (renderMap) =>{
+    this.setState({
+      map: renderMap
+    });
+  }
 
   handleError = () =>{
     this.setState({
@@ -38,8 +46,8 @@ class App extends Component {
     
     return(
       <>
-      <LocationForm error={this.handleError} searchQuery={this.state.searchQuery} handleSubmit={this.handleSubmit} update={this.handleChange}/>
-      <City testError={this.state.error} locationUpdate={this.state.location} />
+      <LocationForm location={this.state.location}error={this.handleError} searchQuery={this.state.searchQuery} handleSubmit={this.handleSubmit} handleMapSubmit={this.handleMapSubmit} update={this.handleChange}/>
+      <City testError={this.state.error} locationUpdate={this.state.location} map={this.state.map} />
       </>
     );
   }

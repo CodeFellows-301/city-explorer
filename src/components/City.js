@@ -1,4 +1,5 @@
 import { Component } from "react";
+import Card from 'react-bootstrap/Card'
 
 
 
@@ -9,17 +10,29 @@ class City extends Component {
     
     return(
        <>
-        {this.props.locationUpdate &&
-        <>
-          <h2>The City Is: {this.props.locationUpdate.display_name}</h2>
-          <p> The Latitude is: {this.props.locationUpdate.lat}</p>
-          <p> The Latitude is: {this.props.locationUpdate.lon}</p>
-        </>
+       {this.props.locationUpdate.display_name &&
+        <Card style={{ width: '35rem' }}>
+          <Card.Img variant="top" src={this.props.map} />
+          <Card.Body>
+            <Card.Title>{this.props.locationUpdate.display_name}</Card.Title>
+            <Card.Text>
+            The Latitude is: {this.props.locationUpdate.lat}
+            The Latitude is: {this.props.locationUpdate.lon}
+            </Card.Text>
+          </Card.Body>
+        </Card>
         }
         {this.props.testError &&
-          <h2> Please Enter a Valid City </h2>
+         <Card style={{ width: '18rem' }}>
+         <Card.Body>
+           <Card.Title> error: Unable to geocode</Card.Title>
+           <Card.Text>
+           Please Enter A Valid City
+           </Card.Text>
+         </Card.Body>
+       </Card>
         }
-       </>
+      </>
     )
   }
 }
