@@ -4,7 +4,6 @@ import Card from 'react-bootstrap/Card'
 
 
 class City extends Component {
-
   
   render() {
     
@@ -36,11 +35,5 @@ class City extends Component {
     )
   }
 }
-
-
-
-
-
-
 
 export default City;
