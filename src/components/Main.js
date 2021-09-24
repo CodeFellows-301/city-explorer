@@ -32,14 +32,15 @@ getLocation = async (event) => {
     let renderMap = mapData.config.url
     this.setState({map: renderMap});
 
-    let weatherServer = `${server}/weather?searchQuery=${this.state.searchQuery}&lat=${this.state.location.lat}&lon=${this.state.location.lon}`
-    let weatherData = await axios.get(weatherServer);
-    if(weatherData.status !== 200){
+    let weatherBitIoCall = `${server}/weather?lat=${this.state.location.lat}&lon=${this.state.location.lon}`
+    console.log(weatherBitIoCall)
+    let weatherBitData = await axios.get(weatherBitIoCall);
+    if(weatherBitData.status !== 200){
       this.setState({
         error: true
       })
     } else{
-      let weatherReport = weatherData.data;
+      let weatherReport = weatherBitData.data;
       this.setState({weather: weatherReport});
     }
 
@@ -58,7 +59,7 @@ getLocation = async (event) => {
 
 
   render(){
-    console.log(this.state.location);
+
     
     return(
       <>
