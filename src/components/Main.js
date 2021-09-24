@@ -3,6 +3,7 @@ import LocationForm from './LocationForm'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import City from './City'
 import Weather from './Weather'
+import Movie from './Movie'
 import axios from "axios";
 
 let server = 'http://localhost:3001'
@@ -15,7 +16,8 @@ class Main extends Component {
       location: {},
       map: null,
       error: false,
-      weather: []
+      weather: [],
+      movie: []
     } 
   }
 
@@ -33,7 +35,6 @@ getLocation = async (event) => {
     this.setState({map: renderMap});
 
     let weatherBitIoCall = `${server}/weather?lat=${this.state.location.lat}&lon=${this.state.location.lon}`
-    console.log(weatherBitIoCall)
     let weatherBitData = await axios.get(weatherBitIoCall);
     if(weatherBitData.status !== 200){
       this.setState({
@@ -44,12 +45,17 @@ getLocation = async (event) => {
       this.setState({weather: weatherReport});
     }
 
-    }catch {
+    let movie = `${server}/movie?searchQuery=${this.state.searchQuery}` 
+    let movieData = await axios.get(movie);
+    this.setState({movie: movieData.data});
+
+    
+  }catch {
       this.setState({
         error: true
       });
     };
-  };
+};
 
   handleChange = (userSearchQuery) =>{
     this.setState({
@@ -59,18 +65,15 @@ getLocation = async (event) => {
 
 
   render(){
-
-    
     return(
       <>
       <LocationForm location={this.state.location} searchQuery={this.state.searchQuery} update={this.handleChange} getLocation={this.getLocation}/>
       <City testError={this.state.error} locationUpdate={this.state.location} map={this.state.map} />
       <Weather weather={this.state.weather} handleWeather={this.handleWeather}/>
+      <Movie movie={this.state.movie}/>
       </>
     );
-  }
-  
-  
-}
+  } 
+};
 
 export default Main;
