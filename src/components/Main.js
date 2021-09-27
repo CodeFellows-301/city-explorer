@@ -3,7 +3,7 @@ import LocationForm from './LocationForm'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import City from './City'
 import Weather from './Weather'
-import Movie from './Movie'
+import Movies from './Movies'
 import axios from "axios";
 
 let server = 'http://localhost:3001'
@@ -32,7 +32,7 @@ getLocation = async (event) => {
     let map = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.location.lat},${this.state.location.lon}&zoom=13&size=900x900` 
     this.setState({map: map});
 
-    let weatherBitIoCall = `${process.env.REACT_APP_WEATHER_API_KEY}/weather?lat=${this.state.location.lat}&lon=${this.state.location.lon}`
+    let weatherBitIoCall = `${process.env.REACT_APP_WEATHER_API_URL}/weather?lat=${this.state.location.lat}&lon=${this.state.location.lon}`
     let weatherBitData = await axios.get(weatherBitIoCall);
     if(weatherBitData.status !== 200){
       this.setState({
@@ -43,7 +43,7 @@ getLocation = async (event) => {
       this.setState({weather: weatherReport});
     }
 
-    let movie = `${process.env.REACT_APP_MOVIE_API_KEY}/movie?searchQuery=${this.state.searchQuery}` 
+    let movie = `${process.env.REACT_APP_MOVIE_API_URL}/movie?searchQuery=${this.state.searchQuery}` 
     let movieData = await axios.get(movie);
     this.setState({movie: movieData.data.data});
 
@@ -68,7 +68,7 @@ getLocation = async (event) => {
       <LocationForm location={this.state.location} searchQuery={this.state.searchQuery} update={this.handleChange} getLocation={this.getLocation}/>
       <City testError={this.state.error} locationUpdate={this.state.location} map={this.state.map} />
       <Weather weather={this.state.weather} handleWeather={this.handleWeather}/>
-      <Movie movie={this.state.movie}/>
+      <Movies movie={this.state.movie}/>
       </>
     );
   } 

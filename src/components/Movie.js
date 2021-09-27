@@ -1,15 +1,15 @@
-import { Component } from "react";
+import { Component } from 'react'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 
+
 class Movie extends Component {
-   
-  render() {
+  render(){
     return(
       <>
-        {this.props.movie.map((movie,index) => {
-            return(
-              <Container>
+      {this.props.movie.map((movie,index) => {
+        return(
+      <Container>
               <Card key={index} style={{ width: '35rem' }}>
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
@@ -24,10 +24,10 @@ class Movie extends Component {
                 </Card.Body>
               </Card>
               </Container>
-            )
-         })};
+        )
+      })};
       </>
     )
-  };
-};
+  }
+}
 export default Movie;
