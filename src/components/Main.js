@@ -6,7 +6,6 @@ import Weather from './Weather'
 import Movies from './Movies'
 import axios from "axios";
 
-let server = 'http://localhost:3001'
 
 class Main extends Component {
   constructor(props){
