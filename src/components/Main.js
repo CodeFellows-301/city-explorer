@@ -30,24 +30,22 @@ getLocation = async (event) => {
     this.setState({location: location, error: false});
       
     let map = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.location.lat},${this.state.location.lon}&zoom=13&size=900x900` 
-    let mapData = await axios.get(map);
-    let renderMap = mapData.config.url
-    this.setState({map: renderMap});
+    this.setState({map: map});
 
-    let weatherBitIoCall = `${server}/weather?lat=${this.state.location.lat}&lon=${this.state.location.lon}`
+    let weatherBitIoCall = `${process.env.REACT_APP_WEATHER_API_KEY}/weather?lat=${this.state.location.lat}&lon=${this.state.location.lon}`
     let weatherBitData = await axios.get(weatherBitIoCall);
     if(weatherBitData.status !== 200){
       this.setState({
         error: true
       })
     } else{
-      let weatherReport = weatherBitData.data;
+      let weatherReport = weatherBitData.data.data;
       this.setState({weather: weatherReport});
     }
 
-    let movie = `${server}/movie?searchQuery=${this.state.searchQuery}` 
+    let movie = `${process.env.REACT_APP_MOVIE_API_KEY}/movie?searchQuery=${this.state.searchQuery}` 
     let movieData = await axios.get(movie);
-    this.setState({movie: movieData.data});
+    this.setState({movie: movieData.data.data});
 
     
   }catch {
